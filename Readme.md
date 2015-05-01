@@ -1,12 +1,12 @@
 [![Coveralls – test coverage
-](https://img.shields.io/coveralls/tomekwi/….svg?style=flat-square)
-](https://coveralls.io/r/tomekwi/…)
+](https://img.shields.io/coveralls/tomekwi/isomorphic-ensure.svg?style=flat-square)
+](https://coveralls.io/r/tomekwi/isomorphic-ensure)
  [![Travis – build status
-](https://img.shields.io/travis/tomekwi/…/master.svg?style=flat-square)
-](https://travis-ci.org/tomekwi/…)
+](https://img.shields.io/travis/tomekwi/isomorphic-ensure/master.svg?style=flat-square)
+](https://travis-ci.org/tomekwi/isomorphic-ensure)
  [![David – status of dependencies
-](https://img.shields.io/david/tomekwi/….svg?style=flat-square)
-](https://david-dm.org/tomekwi/…)
+](https://img.shields.io/david/tomekwi/isomorphic-ensure.svg?style=flat-square)
+](https://david-dm.org/tomekwi/isomorphic-ensure)
  [![Code style: airbnb
 ](https://img.shields.io/badge/code%20style-airbnb-blue.svg?style=flat-square)
 ](https://github.com/airbnb/javascript)
@@ -17,15 +17,16 @@
 
 
 
-…
-===
+isomorphic-ensure
+=================
 
-**…**
+**Use *[webpack][]* loaders seamlessly – in *node* or *iojs* as well as in the browser.**
 
+And that almost for free. The whole thing weighs just around x00 bytes minzipped.
 
-**⚠ Heads up!** This is totally a work in progress. [Thoughts and ideas][] are very welcome.
+[webpack]:  https://github.com/webpack/webpack  "webpack/webpack"
 
-[Thoughts and ideas]:  https://github.com/tomekwi/…/issues
+**⚠ Heads up!** Work in progress.
 
 
 
@@ -34,7 +35,7 @@ Installation
 ------------
 
 ```sh
-$ npm install …
+$ npm install isomorphic-ensure
 ```
 
 
@@ -43,7 +44,26 @@ $ npm install …
 Usage
 -----
 
-…
+**1) Wire things up.**
+
+```js
+if (!require.ensure) require.ensure = require('isomorphic-ensure')({
+  loaders: {raw: require('raw-loader')},
+});
+```
+
+
+**2) Profit!**
+
+```js
+require.ensure(['raw!./data.xml'],
+  (require) => {
+    const data = require('raw!./data.xml');
+    // Miracles! It works everywhere!
+  },
+  {dirname: __dirname}
+);
+```
 
 
 

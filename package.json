@@ -1,0 +1,42 @@
+{ "name": "…"
+, "version": "0.0.0-work-in-progress"
+, "description": "…"
+
+, "dependencies":
+  {}
+
+, "scripts":
+  { "build": "cd module && babel --out-dir ../ *.js"
+  , "clean": "git reset && echo '/node_modules/' > .gitignore && git add .gitignore && git stash save --include-untracked --keep-index '`npm run clean` trash can' && git clean --force -d && git reset --hard && echo '\nclean: Uncommitted and ignored files have been moved to git’s stash. To restore them run `git stash pop --quiet; git checkout .gitignore`.'"
+  , "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+  , "coverage": "isparta cover test.js"
+  , "develop": "nodangel --ignore node_modules --exec 'npm run --silent test:lite'"
+  , "prepublish": "npm run clean && npm run build"
+  , "test": "jshint . && babel *.js module/*.js --out-dir .es5 && node .es5/test.js | tap-spec"
+  , "test:lite": "babel-node test.js | tap-spec"
+  }
+
+, "devDependencies":
+  { "?": "Run `npm install babel coveralls isparta jshint nodangel tap-spec@2` and save it here"
+
+  , "?": "Run `npm install tape-catch` and save it here"
+  }
+
+, "files":
+  [ "/*.js"
+  , "/module/"
+  , "/test/"
+  , "/Readme.md"
+  , "/License.md"
+  ]
+
+, "license": "MIT"
+, "keywords":
+  [ "…"
+  ]
+, "author": "Tomek Wiszniewski <t.wiszniewski@gmail.com>"
+, "repository":
+  { "type": "git"
+  , "url": "git@github.com:tomekwi/….git"
+  }
+}

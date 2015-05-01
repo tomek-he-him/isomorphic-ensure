@@ -1,6 +1,6 @@
-{ "name": "…"
+{ "name": "isomorphic-ensure"
 , "version": "0.0.0-work-in-progress"
-, "description": "…"
+, "description": "Use webpack loaders seamlessly – in node/iojs as well as in the browser."
 
 , "dependencies":
   {}
@@ -17,9 +17,15 @@
   }
 
 , "devDependencies":
-  { "?": "Run `npm install babel coveralls isparta jshint nodangel tap-spec@2` and save it here"
+  { "babel": "5.2.6"
+  , "coveralls": "2.11.2"
+  , "isparta": "3.0.3"
+  , "jshint": "2.7.0"
+  , "nodangel": "1.3.8"
+  , "tap-spec": "2.2.2"
 
-  , "?": "Run `npm install tape-catch` and save it here"
+  , "raw-loader": "0.5.1"
+  , "tape-catch": "1.0.4"
   }
 
 , "files":
@@ -37,6 +43,6 @@
 , "author": "Tomek Wiszniewski <t.wiszniewski@gmail.com>"
 , "repository":
   { "type": "git"
-  , "url": "git@github.com:tomekwi/….git"
+  , "url": "git@github.com:tomekwi/isomorphic-ensure.git"
   }
 }

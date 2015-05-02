@@ -6,6 +6,7 @@ import isomorphicEnsure from './module';
 
 if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
   raw: require('raw-loader'),
+  json: require('json-loader'),
 }});
 
 test('Doesn’t break the native `require`.', (is) => {
@@ -58,13 +59,38 @@ test('Works with raw-loader.', (is) => {
     is.equal(
       require('raw!./test/fixtures/itWorks.txt'),
       'It works with raw text files!\n',
-      'and local files'
+      'for local files'
     );
 
     is.equal(
       require('raw!babel/README.md'),
       readFileSync('./node_modules/babel/README.md', {encoding: 'utf8'}),
-      'and module files'
+      'for module files'
+    );
+
+    is.end();
+  }, {dirname: __dirname});
+});
+
+test('Works with json-loader.', (is) => {
+  require.ensure([
+    'json!./test/fixtures/itWorks.json',
+    'json!babel/package.json',
+  ], (require) => {
+    is.deepEqual(
+      require('json!./test/fixtures/itWorks.json'),
+      JSON.parse(
+        readFileSync('./test/fixtures/itWorks.json', {encoding: 'utf8'})
+      ),
+      'for local files'
+    );
+
+    is.deepEqual(
+      require('json!babel/package.json'),
+      JSON.parse(
+        readFileSync('./node_modules/babel/package.json', {encoding: 'utf8'})
+      ),
+      'for module files'
     );
 
     is.end();

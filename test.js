@@ -1,14 +1,14 @@
-import path from 'path';
+import {readFileSync} from 'fs';
 
 import test from 'tape-catch';
 
 import isomorphicEnsure from './module';
 
-test('Doesn’t break the native `require`.', (is) => {
-  if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
-    raw: require('raw-loader'),
-  }});
+if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
+  raw: require('raw-loader'),
+}});
 
+test('Doesn’t break the native `require`.', (is) => {
   require.ensure([
     './test/fixtures/itWorks',
     './test/fixtures/itReallyWorks.js',
@@ -50,19 +50,23 @@ test('Doesn’t break the native `require`.', (is) => {
   }, {dirname: __dirname});
 });
 
-test.skip('Loads raw text files.', (is) => {
-  is.equal(
-    require('raw!./test/fixtures/itWorks.txt'),
-    'It works with raw text files!\n',
-    'from local files'
-  );
+test('Loads raw text files.', (is) => {
+  require.ensure([
+    'raw!./test/fixtures/itWorks.txt',
+    'raw!babel/README.md',
+  ], (require) => {
+    is.equal(
+      require('raw!./test/fixtures/itWorks.txt'),
+      'It works with raw text files!\n',
+      'from local files'
+    );
 
-  // // See “caveats” in the readme.
-  // is.equal(
-  //   require('raw!babel/README.md'),
-  //   readFileSync('../node_modules/babel/README.md'),
-  //   'from module files'
-  // );
+    is.equal(
+      require('raw!babel/README.md'),
+      readFileSync('../node_modules/babel/README.md'),
+      'from module files'
+    );
 
-  is.end();
+    is.end();
+  }, {dirname: __dirname});
 });

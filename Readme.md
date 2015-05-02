@@ -19,7 +19,7 @@ isomorphic-ensure
 
 **Use *[webpack][]* loaders seamlessly – in *node* or *iojs* as well as in the browser.**
 
-And that almost for free. All you’ll add to the browser bundle, including boilerplate code, weighs just around 160 bytes minzipped (measured when *raw-loader* and *json-loader* are used).
+And that almost for free. Around 160 bytes is all you’ll add to the browser bundle – including boilerplate code. Measured minzipped when *raw-loader* and *json-loader* are used.
 
 [webpack]:  https://github.com/webpack/webpack  "webpack/webpack"
 

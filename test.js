@@ -7,8 +7,22 @@ import isomorphicEnsure from './module';
 if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
   raw: require('raw-loader'),
   json: require('json-loader'),
-  async: () => { this.async(); },
-  resolve: () => { this.resolve(); },
+  async: function() {
+    this.async();
+    return '';
+  },
+  resolve: function() {
+    this.resolve();
+    return '';
+  },
+  cacheable: function() {
+    this.cacheable();
+    return '';
+  },
+  dependencies: function() {
+    this.dependencies();
+    return '';
+  },
 }});
 
 test('Doesn’t break the native `require`.', (is) => {
@@ -105,23 +119,35 @@ test('Works with json-loader.', (is) => {
   });
 });
 
-test('Throws upon non-compatible loaders.', (is) => {
+test('Checks if loaders are compatible.', (is) => {
   require.ensure([
     'async!./test/fixtures/itWorks.txt',
     'resolve!./test/fixtures/itWorks.txt',
+    'cacheable!./test/fixtures/itWorks.txt',
+    'dependencies!./test/fixtures/itWorks.txt',
   ], (require) => {
     require.dirname = __dirname;
 
     is.throws(
       () => require('async!./test/fixtures/itWorks.txt'),
       Error,
-      'async loaders'
+      'frowns upon async loaders'
     );
 
     is.throws(
       () => require('resolve!./test/fixtures/itWorks.txt'),
       Error,
-      'loaders with `this.resolve`'
+      'frowns upon loaders with `this.resolve`'
+    );
+
+    is.doesNotThrow(
+      () => require('cacheable!./test/fixtures/itWorks.txt'),
+      'has nothing against cacheable loaders'
+    );
+
+    is.doesNotThrow(
+      () => require('dependencies!./test/fixtures/itWorks.txt'),
+      'has nothing against loaders with dependencies'
     );
 
     is.end();

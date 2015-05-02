@@ -7,14 +7,8 @@ import isomorphicEnsure from './module';
 if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
   raw: require('raw-loader'),
   json: require('json-loader'),
-  async: function() {
-    this.async();
-    return '';
-  },
-  resolve: function() {
-    this.resolve();
-    return '';
-  },
+  async: function() { this.async(); },
+  resolve: function() { this.resolve(); },
   cacheable: function() {
     this.cacheable();
     return '';

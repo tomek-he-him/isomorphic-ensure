@@ -19,7 +19,7 @@ isomorphic-ensure
 
 **Use *[webpack][]* loaders seamlessly – in *node* or *iojs* as well as in the browser.**
 
-And that almost for free. The whole thing weighs just around x00 bytes minzipped.
+And that almost for free. All you’ll add to the bundle, including boilerplate code, weighs just around 100 bytes minzipped (measured when *raw-loader* and *json-loader* are used).
 
 [webpack]:  https://github.com/webpack/webpack  "webpack/webpack"
 
@@ -42,18 +42,26 @@ Usage
 **1) Wire things up.**
 
 ```js
-if (!require.ensure) require.ensure = require('isomorphic-ensure')({
-  loaders: {raw: require('raw-loader')},
-});
+if (!require.ensure) require.ensure =
+  require('isomorphic-ensure')({loaders: {
+    raw: require('raw-loader'),
+    json: require('json-loader'),
+  }})
+;
 ```
 
 
 **2) Profit!**
 
 ```js
-require.ensure(['raw!./data.xml'], (require) => {
+require.ensure(['json!babel/package.json', 'raw!./data.xml'], (require) => {
+  // Node modules are supported out of the box:
+  const babelManifest = require('json!babel/package.json');
+
+  // Before referencing relative paths pass the current location:
   require.dirname = __dirname;
   const data = require('raw!./data.xml');
+
   // Miracles! It works everywhere!
 });
 ```
@@ -64,7 +72,9 @@ require.ensure(['raw!./data.xml'], (require) => {
 ```js
 // ...
   resolve: {alias: {
-    'isomorphic-ensure': 'isomorphic-ensure/empty.js'
+    'isomorphic-ensure': 'isomorphic-ensure/mock.js',
+    'raw-loader': 'isomorphic-ensure/mock.js',
+    'json-loader': 'isomorphic-ensure/mock.js',
   }},
 // ...
 ```

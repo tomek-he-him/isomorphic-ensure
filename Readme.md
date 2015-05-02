@@ -56,17 +56,15 @@ if (!require.ensure) require.ensure = require('isomorphic-ensure')({
 **2) Profit!**
 
 ```js
-require.ensure(['raw!./data.xml'],
-  (require) => {
-    const data = require('raw!./data.xml');
-    // Miracles! It works everywhere!
-  },
-  {dirname: __dirname}
-);
+require.ensure(['raw!./data.xml'], (require) => {
+  require.dirname = __dirname;
+  const data = require('raw!./data.xml');
+  // Miracles! It works everywhere!
+});
 ```
 
 
-**3) Update your webpack config**
+**3) If you’re using webpack, update your config.**
 
 ```js
 // ...

@@ -19,6 +19,8 @@ test('Doesn’t break the native `require`.', (is) => {
     'tape-catch',
     'tape-catch/index.js',
   ], (require) => {
+    require.dirname = __dirname;
+
     is.equal(
       require('./test/fixtures/itWorks'),
       'It works!',
@@ -50,7 +52,7 @@ test('Doesn’t break the native `require`.', (is) => {
     );
 
     is.end();
-  }, {dirname: __dirname});
+  });
 });
 
 test('Works with raw-loader.', (is) => {
@@ -58,6 +60,8 @@ test('Works with raw-loader.', (is) => {
     'raw!./test/fixtures/itWorks.txt',
     'raw!babel/README.md',
   ], (require) => {
+    require.dirname = __dirname;
+
     is.equal(
       require('raw!./test/fixtures/itWorks.txt'),
       'It works with raw text files!\n',
@@ -71,7 +75,7 @@ test('Works with raw-loader.', (is) => {
     );
 
     is.end();
-  }, {dirname: __dirname});
+  });
 });
 
 test('Works with json-loader.', (is) => {
@@ -79,6 +83,8 @@ test('Works with json-loader.', (is) => {
     'json!./test/fixtures/itWorks.json',
     'json!babel/package.json',
   ], (require) => {
+    require.dirname = __dirname;
+
     is.deepEqual(
       require('json!./test/fixtures/itWorks.json'),
       JSON.parse(
@@ -96,7 +102,7 @@ test('Works with json-loader.', (is) => {
     );
 
     is.end();
-  }, {dirname: __dirname});
+  });
 });
 
 test('Throws upon non-compatible loaders.', (is) => {
@@ -104,6 +110,8 @@ test('Throws upon non-compatible loaders.', (is) => {
     'async!./test/fixtures/itWorks.txt',
     'resolve!./test/fixtures/itWorks.txt',
   ], (require) => {
+    require.dirname = __dirname;
+
     is.throws(
       () => require('async!./test/fixtures/itWorks.txt'),
       Error,
@@ -117,5 +125,5 @@ test('Throws upon non-compatible loaders.', (is) => {
     );
 
     is.end();
-  }, {dirname: __dirname});
+  });
 });

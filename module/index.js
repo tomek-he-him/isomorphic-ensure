@@ -30,10 +30,10 @@ export default (settings = {}) => {
   const {loaders} = settings;
   const {readFileSync} = require('fs');
 
-  return (dependencies, callback, context) => {
-    const {dirname} = context;
+  return (dependencies, callback) => {
     process.nextTick(() => callback(
-      (moduleId) => {
+      function customRequire(moduleId) {
+        const {dirname} = customRequire;
         const [, loadersPart, rawPath] = moduleId.match(moduleIdParts);
         const loadersList = loadersPart.split('!').slice(0, -1);
         const modulePath = (startsWithDot.test(rawPath) ?

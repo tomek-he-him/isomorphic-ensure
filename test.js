@@ -7,6 +7,8 @@ import isomorphicEnsure from './module';
 if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
   raw: require('raw-loader'),
   json: require('json-loader'),
+  async: () => { this.async(); },
+  resolve: () => { this.resolve(); },
 }});
 
 test('Doesn’t break the native `require`.', (is) => {
@@ -91,6 +93,27 @@ test('Works with json-loader.', (is) => {
         readFileSync('./node_modules/babel/package.json', {encoding: 'utf8'})
       ),
       'for module files'
+    );
+
+    is.end();
+  }, {dirname: __dirname});
+});
+
+test('Throws upon non-compatible loaders.', (is) => {
+  require.ensure([
+    'async!./test/fixtures/itWorks.txt',
+    'resolve!./test/fixtures/itWorks.txt',
+  ], (require) => {
+    is.throws(
+      () => require('async!./test/fixtures/itWorks.txt'),
+      Error,
+      'async loaders'
+    );
+
+    is.throws(
+      () => require('resolve!./test/fixtures/itWorks.txt'),
+      Error,
+      'loaders with `this.resolve`'
     );
 
     is.end();

@@ -1,6 +1,6 @@
 { "name": "isomorphic-ensure"
 , "version": "0.0.1"
-, "description": "Use webpack loaders seamlessly – in node/iojs as well as in the browser."
+, "description": "Use webpack loaders seamlessly – in node as well as in the browser."
 
 , "dependencies":
   {}
@@ -41,7 +41,16 @@
 
 , "license": "MIT"
 , "keywords":
-  [ "…"
+  [ "loader"
+  , "node"
+  , "webpack"
+  , "require"
+  , "isomorphic"
+  , "ensure"
+  , "raw"
+  , "loaders"
+  , "json"
+  , "iojs"
   ]
 , "author": "Tomek Wiszniewski <t.wiszniewski@gmail.com>"
 , "repository":

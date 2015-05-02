@@ -10,9 +10,6 @@
  [![Code style: airbnb
 ](https://img.shields.io/badge/code%20style-airbnb-blue.svg?style=flat-square)
 ](https://github.com/airbnb/javascript)
- [![Stability: experimental
-](https://img.shields.io/badge/stability-experimental-red.svg?style=flat-square)
-](https://nodejs.org/api/documentation.html#documentation_stability_index)
 
 
 
@@ -25,8 +22,6 @@ isomorphic-ensure
 And that almost for free. The whole thing weighs just around x00 bytes minzipped.
 
 [webpack]:  https://github.com/webpack/webpack  "webpack/webpack"
-
-**⚠ Heads up!** Work in progress.
 
 
 

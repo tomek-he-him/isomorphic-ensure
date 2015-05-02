@@ -50,7 +50,7 @@ test('Doesn’t break the native `require`.', (is) => {
   }, {dirname: __dirname});
 });
 
-test('Loads raw text files.', (is) => {
+test('Works with raw-loader.', (is) => {
   require.ensure([
     'raw!./test/fixtures/itWorks.txt',
     'raw!babel/README.md',
@@ -58,13 +58,13 @@ test('Loads raw text files.', (is) => {
     is.equal(
       require('raw!./test/fixtures/itWorks.txt'),
       'It works with raw text files!\n',
-      'from local files'
+      'and local files'
     );
 
     is.equal(
       require('raw!babel/README.md'),
-      readFileSync('../node_modules/babel/README.md'),
-      'from module files'
+      readFileSync('./node_modules/babel/README.md', {encoding: 'utf8'}),
+      'and module files'
     );
 
     is.end();

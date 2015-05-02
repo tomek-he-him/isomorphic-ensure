@@ -66,6 +66,17 @@ require.ensure(['raw!./data.xml'],
 ```
 
 
+**3) Update your webpack config**
+
+```js
+// ...
+  resolve: {alias: {
+    'isomorphic-ensure': 'isomorphic-ensure/empty.js'
+  }},
+// ...
+```
+
+
 
 
 License

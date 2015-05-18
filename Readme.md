@@ -42,7 +42,7 @@ Usage
 **1) Wire things up.**
 
 ```js
-if (!require.ensure) require.ensure =
+if (typeof require.ensure !== 'function') require.ensure =
   require('isomorphic-ensure')({loaders: {
     raw: require('raw-loader'),
     json: require('json-loader'),
@@ -72,9 +72,9 @@ require.ensure(['json!babel/package.json', 'raw!./data.xml'], (require) => {
 ```js
 // ...
   resolve: {alias: {
-    'isomorphic-ensure': 'isomorphic-ensure/mock.js',
-    'raw-loader': 'isomorphic-ensure/mock.js',
-    'json-loader': 'isomorphic-ensure/mock.js',
+    'isomorphic-ensure': 'isomorphic-ensure/mock',
+    'raw-loader': 'isomorphic-ensure/mock',
+    'json-loader': 'isomorphic-ensure/mock',
   }},
 // ...
 ```

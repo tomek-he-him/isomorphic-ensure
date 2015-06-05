@@ -128,14 +128,14 @@ test('Checks if loaders are compatible.', (is) => {
   ], (require) => {
     is.throws(
       () => require('async!./fixtures/itWorks.txt'),
-      Error,
+      /async loaders are not supported/i,
       'frowns upon async loaders'
     );
 
     is.throws(
       () => require('resolve!./fixtures/itWorks.txt'),
-      Error,
-      'frowns upon loaders with `this.resolve`'
+      /loaders which use `this.resolve` are not supported/i,
+      'frowns upon loaders which use `this.resolve`'
     );
 
     is.doesNotThrow(

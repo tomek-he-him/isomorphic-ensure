@@ -9,10 +9,10 @@ const loaderContext = {
   cacheable() {},
   dependencies() {},
   async() {throw new Error(
-    'isomorphic-ensure: Async modules are not supported.'
+    '[isomorphic-ensure] Async loaders are not supported.'
   );},
   resolve() {throw new Error(
-    'isomorphic-ensure: Loaders which use `this.resolve` are not supported.'
+    '[isomorphic-ensure] Loaders which use `this.resolve` are not supported.'
   );},
 };
 
@@ -36,7 +36,15 @@ export default (settings = {}) => {
       function customRequire(moduleId) {
         const [, loadersPart, rawPath] = moduleId.match(moduleIdParts);
         const loadersList = loadersPart.split('!').slice(0, -1);
-        const modulePath = (startsWithDot.test(rawPath) ?
+        const localModule = startsWithDot.test(rawPath);
+
+        if (localModule && typeof dirname !== 'string') throw new Error(
+          '[isomorphic-ensure] Unable to determine import path. When ' +
+          'requiring local modules remember to pass `dirname: __dirname` in '+
+          'options.'
+        );
+
+        const modulePath = (localModule ?
           resolve(dirname, rawPath) :
           require.resolve(rawPath)
         );

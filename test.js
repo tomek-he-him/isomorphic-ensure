@@ -4,7 +4,7 @@ import test from 'tape-catch';
 
 import isomorphicEnsure from './module';
 
-if (!require.ensure) require.ensure = isomorphicEnsure({
+if (typeof require.ensure !== 'function') require.ensure = isomorphicEnsure({
   loaders: {
     raw: require('raw-loader'),
     json: require('json-loader'),

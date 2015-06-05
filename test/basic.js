@@ -1,4 +1,5 @@
 import {readFileSync} from 'fs';
+import {resolve} from 'path';
 
 import test from 'tape-catch';
 
@@ -94,9 +95,9 @@ test('Works with json-loader.', (is) => {
   ], (require) => {
     is.deepEqual(
       require('json!./fixtures/itWorks.json'),
-      JSON.parse(
-        readFileSync('./fixtures/itWorks.json', {encoding: 'utf8'})
-      ),
+      JSON.parse(readFileSync(
+        resolve(__dirname, 'fixtures/itWorks.json'), {encoding: 'utf8'}
+      )),
       'for local files'
     );
 

@@ -13,7 +13,7 @@
   , "coverage": "isparta cover test.js"
   , "develop": "nodangel --ignore node_modules --exec 'npm run --silent test:lite'"
   , "prepublish": "npm run clean && npm run build"
-  , "test": "jshint . && babel *.js module/*.js --out-dir .es5 && mkdir -p  .es5/test/fixtures && cp test/fixtures/* .es5/test/fixtures && node .es5/test.js | tap-spec"
+  , "test": "jshint . && babel *.js module/*.js test/*.js --out-dir .es5 && cp -r test/fixtures .es5/test/fixtures && node .es5/test.js | tap-spec"
   , "test:lite": "babel-node test.js | tap-spec"
   }
 

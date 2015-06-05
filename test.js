@@ -4,20 +4,23 @@ import test from 'tape-catch';
 
 import isomorphicEnsure from './module';
 
-if (!require.ensure) require.ensure = isomorphicEnsure({loaders: {
-  raw: require('raw-loader'),
-  json: require('json-loader'),
-  async: function() { this.async(); },
-  resolve: function() { this.resolve(); },
-  cacheable: function() {
-    this.cacheable();
-    return '';
+if (!require.ensure) require.ensure = isomorphicEnsure({
+  loaders: {
+    raw: require('raw-loader'),
+    json: require('json-loader'),
+    async: function() { this.async(); },
+    resolve: function() { this.resolve(); },
+    cacheable: function() {
+      this.cacheable();
+      return '';
+    },
+    dependencies: function() {
+      this.dependencies();
+      return '';
+    },
   },
-  dependencies: function() {
-    this.dependencies();
-    return '';
-  },
-}});
+  dirname: __dirname,
+});
 
 test('Doesn’t break the native `require`.', (is) => {
   require.ensure([
@@ -27,8 +30,6 @@ test('Doesn’t break the native `require`.', (is) => {
     'tape-catch',
     'tape-catch/index.js',
   ], (require) => {
-    require.dirname = __dirname;
-
     is.equal(
       require('./test/fixtures/itWorks'),
       'It works!',
@@ -91,8 +92,6 @@ test('Works with json-loader.', (is) => {
     'json!./test/fixtures/itWorks.json',
     'json!babel/package.json',
   ], (require) => {
-    require.dirname = __dirname;
-
     is.deepEqual(
       require('json!./test/fixtures/itWorks.json'),
       JSON.parse(
@@ -120,8 +119,6 @@ test('Checks if loaders are compatible.', (is) => {
     'cacheable!./test/fixtures/itWorks.txt',
     'dependencies!./test/fixtures/itWorks.txt',
   ], (require) => {
-    require.dirname = __dirname;
-
     is.throws(
       () => require('async!./test/fixtures/itWorks.txt'),
       Error,

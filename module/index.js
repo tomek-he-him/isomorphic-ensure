@@ -29,6 +29,7 @@ const moduleIdParts = /^((?:[a-z\-]+!)*)(.*)$/;
 export default (settings = {}) => {
   const {loaders, dirname} = settings;
   const {readFileSync} = require('fs');
+  const {resolve} = require('path');
 
   return (dependencies, callback) => {
     process.nextTick(() => callback(
@@ -36,7 +37,7 @@ export default (settings = {}) => {
         const [, loadersPart, rawPath] = moduleId.match(moduleIdParts);
         const loadersList = loadersPart.split('!').slice(0, -1);
         const modulePath = (startsWithDot.test(rawPath) ?
-          `${dirname}/${rawPath}` :
+          resolve(dirname, rawPath) :
           require.resolve(rawPath)
         );
 

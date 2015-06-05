@@ -5,6 +5,12 @@ import test from 'tape-catch';
 
 import isomorphicEnsure from '../module';
 
+const nodeModulesPath = resolve(
+  __dirname,
+  /\/.es5\//.test(__dirname) ? '../../' : '../',
+  'node_modules'
+);
+
 if (typeof require.ensure !== 'function') require.ensure = isomorphicEnsure({
   loaders: {
     raw: require('raw-loader'),
@@ -80,7 +86,7 @@ test('Works with raw-loader.', (is) => {
 
     is.equal(
       require('raw!babel/README.md'),
-      readFileSync('./node_modules/babel/README.md', {encoding: 'utf8'}),
+      readFileSync(nodeModulesPath + '/babel/README.md', {encoding: 'utf8'}),
       'for module files'
     );
 
@@ -103,9 +109,9 @@ test('Works with json-loader.', (is) => {
 
     is.deepEqual(
       require('json!babel/package.json'),
-      JSON.parse(
-        readFileSync('./node_modules/babel/package.json', {encoding: 'utf8'})
-      ),
+      JSON.parse(readFileSync(
+        nodeModulesPath + '/babel/package.json', {encoding: 'utf8'}
+      )),
       'for module files'
     );
 

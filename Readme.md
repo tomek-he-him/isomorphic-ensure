@@ -17,7 +17,7 @@
 isomorphic-ensure
 =================
 
-**Use *[webpack][]* loaders seamlessly – in *node* or *iojs* as well as in the browser.**
+**Use *[webpack][]* loaders seamlessly – in *node* as well as in the browser.**
 
 And that almost for free. Around 160 bytes is all you’ll add to the browser bundle – including boilerplate code. Measured minzipped when *raw-loader* and *json-loader* are used.
 
@@ -43,10 +43,17 @@ Usage
 
 ```js
 if (typeof require.ensure !== 'function') require.ensure =
-  require('isomorphic-ensure')({loaders: {
-    raw: require('raw-loader'),
-    json: require('json-loader'),
-  }})
+  require('isomorphic-ensure')({
+
+    // If you want to use loaders, pass them through options:
+    loaders: {
+      raw: require('raw-loader'),
+      json: require('json-loader'),
+    },
+
+    // If you require local files, pass the current location:
+    dirname: __dirname,
+  })
 ;
 ```
 
@@ -54,15 +61,24 @@ if (typeof require.ensure !== 'function') require.ensure =
 **2) Profit!**
 
 ```js
-require.ensure(['json!babel/package.json', 'raw!./data.xml'], (require) => {
-  // Node modules are supported out of the box:
-  const babelManifest = require('json!babel/package.json');
+// …later in the same file:
 
-  // Before referencing relative paths pass the current location:
-  require.dirname = __dirname;
+require.ensure(
+  ['./other-module', 'raw!./data.xml', 'tape', 'json!tape/package.json'],
+  (require) => {
+  // Local scripts:
+  const otherModule = require('./other-module');
+
+  // Local files via a loader:
   const data = require('raw!./data.xml');
 
-  // Miracles! It works everywhere!
+  // Node modules:
+  const tape = require('tape');
+
+  // Node module files via a loader:
+  const tapeManifest = require('json!tape/package.json');
+
+  // Wow! It just works!
 });
 ```
 
@@ -70,13 +86,13 @@ require.ensure(['json!babel/package.json', 'raw!./data.xml'], (require) => {
 **3) If you’re using webpack, update your config.**
 
 ```js
-// ...
+// …
   resolve: {alias: {
     'isomorphic-ensure': 'isomorphic-ensure/mock',
     'raw-loader': 'isomorphic-ensure/mock',
     'json-loader': 'isomorphic-ensure/mock',
   }},
-// ...
+// …
 ```
 
 

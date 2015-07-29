@@ -1,5 +1,5 @@
 { "name": "isomorphic-ensure"
-, "version": "1.0.0-alpha"
+, "version": "1.0.0"
 , "description": "Use webpack loaders seamlessly – in node as well as in the browser."
 , "dependencies": {}
 , "scripts":

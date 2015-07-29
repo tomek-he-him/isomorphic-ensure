@@ -1,10 +1,7 @@
 { "name": "isomorphic-ensure"
 , "version": "1.0.0-alpha"
 , "description": "Use webpack loaders seamlessly – in node as well as in the browser."
-
-, "dependencies":
-  {}
-
+, "dependencies": {}
 , "scripts":
   { "build": "cd module && babel --loose es6.modules --out-dir ../ *.js"
   , "check-size": "npm run build; for file in index.js; do echo \"$file\"; uglifyjs \"$file\" | gzip | pv >/dev/null; done"
@@ -17,21 +14,18 @@
   , "test:transpile": "babel *.js module/*.js test/*.js --out-dir .es5 && cp -r test/fixtures .es5/test/fixtures"
   , "test:lite": "babel-node test.js | tap-spec"
   }
-
 , "devDependencies":
-  { "babel": "5.2.6"
-  , "coveralls": "2.11.2"
-  , "istanbul": "0.3.14"
-  , "jshint": "2.7.0"
+  { "babel": "5.8.19"
+  , "coveralls": "2.11.3"
+  , "istanbul": "0.3.17"
+  , "jshint": "2.8.0"
+  , "json-loader": "0.5.2"
   , "nodangel": "1.3.8"
-  , "tap-spec": "2.2.2"
-  , "uglify-js": "2.4.20"
-
-  , "json-loader": "0.5.1"
   , "raw-loader": "0.5.1"
+  , "tap-spec": "2.2.2"
   , "tape-catch": "1.0.4"
+  , "uglify-js": "2.4.24"
   }
-
 , "files":
   [ "/*.js"
   , "/module/"
@@ -39,7 +33,6 @@
   , "/Readme.md"
   , "/License.md"
   ]
-
 , "license": "MIT"
 , "keywords":
   [ "loader"

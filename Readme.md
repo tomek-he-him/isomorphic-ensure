@@ -8,10 +8,10 @@
 ](https://img.shields.io/david/tomekwi/isomorphic-ensure.svg?style=flat-square
 )](https://david-dm.org/tomekwi/isomorphic-ensure
 ) [![Stability: stable
-](https://img.shields.io/badge/stability-stable-blue.svg?style=flat-square
+](https://img.shields.io/badge/stability-stable-brightgreen.svg?style=flat-square
 )](https://nodejs.org/api/documentation.html#documentation_stability_index
 ) [![Code style: airbnb
-](https://img.shields.io/badge/code%20style-airbnb-blue.svg?style=flat-square
+](https://img.shields.io/badge/code%20style-airbnb-777777.svg?style=flat-square
 )](https://github.com/airbnb/javascript
 )
 

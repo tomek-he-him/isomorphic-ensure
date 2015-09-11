@@ -70,20 +70,21 @@ if (typeof require.ensure !== 'function') require.ensure =
 require.ensure(
   ['./other-module', 'raw!./data.xml', 'tape', 'json!tape/package.json'],
   (require) => {
-  // Local scripts:
-  const otherModule = require('./other-module');
-
-  // Local files via a loader:
-  const data = require('raw!./data.xml');
-
-  // Node modules:
-  const tape = require('tape');
-
-  // Node module files via a loader:
-  const tapeManifest = require('json!tape/package.json');
-
-  // Wow! It just works!
-});
+    // Local scripts:
+    const otherModule = require('./other-module');
+  
+    // Local files via a loader:
+    const data = require('raw!./data.xml');
+  
+    // Node modules:
+    const tape = require('tape');
+  
+    // Node module files via a loader:
+    const tapeManifest = require('json!tape/package.json');
+  
+    // Wow! It just works!
+  }
+);
 ```
 
 

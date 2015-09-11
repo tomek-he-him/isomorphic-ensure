@@ -8,8 +8,7 @@ before_install:
 language:
   node_js
 node_js:
-  - "0.12"
-  - iojs
+  - stable
 
 after_script:
   npm run coveralls

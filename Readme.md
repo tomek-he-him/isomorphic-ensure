@@ -102,6 +102,31 @@ require.ensure(
 
 
 
+FAQ
+---
+
+**Isn’t `require.ensure` just a webpack feature?**
+
+Actually, it’s [in the CommonJS spec](http://wiki.commonjs.org/wiki/Modules/Async/A), but node chose not to support it.
+
+**Do json-loader and raw-loader not work on the server side?**
+
+They work only if you process your server code with webpack. isomorphic-ensure works in raw JS code run directly in node. It passes a custom `require` function to your callback – and that function works with loaders.
+
+**How does it behave with loaders other than raw and json loaders?**
+
+Though I haven’t tested it with other loaders, we support the whole loader API. Any webpack loader should work.
+
+**Does it copies files for file/url loaders?**
+
+It does exactly the same as webpack does.
+
+**Would a build that processes server code through webpack even need this?**
+
+Nope. But sometimes that’s unnecessary overhead. I wrote this module to be able to test my UI in node. I wanted my test to be fast, so building native server code with webpack would be too slow and too complex for me.
+
+
+
 
 License
 -------

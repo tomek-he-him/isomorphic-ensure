@@ -25,6 +25,7 @@
     "raw-loader": "0.5.1",
     "tap-spec": "2.2.2",
     "tape-catch": "1.0.4",
+    "tape": "4.5.1",
     "uglify-js": "2.4.24"
   },
   "files": [

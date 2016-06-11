@@ -117,7 +117,7 @@ They work only if you process your server code with webpack. isomorphic-ensure w
 
 Though I haven’t tested it with other loaders, we support the whole loader API. Any webpack loader should work.
 
-**Does it copies files for file/url loaders?**
+**Does it copy files for file/url loaders?**
 
 It does exactly the same as webpack does.
 
